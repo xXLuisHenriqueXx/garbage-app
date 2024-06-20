@@ -6,7 +6,9 @@ export const theme = {
         glowGreen: '#07C87250',
         containerGreen: '#085D3740',
         darkGreen: '#085D37',
-        darkestGreen: '#02361F'
+        darkestGreen: '#02361F',
+        fadeModalBg: '#00000090',
+        modalBg: "#01180E"
     },
     images: {
         bgMain: require('../../assets/background/main_background.png'),

@@ -15,6 +15,7 @@ export const ScrollContainer = styled.ScrollView`
 `;
 
 export const Container = styled.KeyboardAvoidingView`
+    flex: 1;
     padding-top: ${RFValue(statusBarHeight)}px;
     margin: 0 ${RFValue(15)}px;
     flex-direction: column;
@@ -25,7 +26,7 @@ export const Logo = styled.Image.attrs({
     resizeMode: "contain"
 })`
     width: ${RFValue(80)}px;
-    margin: ${RFValue(-70)}px;
+    margin: ${RFValue(-70)}px 0;
 `;
 
 export const InputContainer = styled.View`
@@ -56,7 +57,7 @@ export const InputTitle = styled.Text`
     color: ${({ theme }) => theme.colors.primaryGreen};
 `;
 
-export const ButtonLogin = styled.TouchableOpacity`
+export const ButtonRegister = styled.TouchableOpacity`
     width: 100%;
     height: ${RFValue(60)}px;
     background-color: ${({ theme }) => theme.colors.primaryGreen};
@@ -66,20 +67,11 @@ export const ButtonLogin = styled.TouchableOpacity`
     align-items: center;
 `;
 
-export const ButtonLoginText = styled.Text`
+export const ButtonRegisterText = styled.Text`
     font-size: ${RFValue(22)}px;
     color: ${({ theme }) => theme.colors.darkGreen};
     font-weight: 900;
     text-transform: uppercase;
-`;
-
-export const ButtonRegister = styled(ButtonLogin)`
-    background-color: transparent;
-    border: ${RFValue(1)}px solid ${({ theme }) => theme.colors.primaryGreen};
-`;
-
-export const ButtonTextRegister = styled(ButtonLoginText)`
-    color: ${({ theme }) => theme.colors.white};
 `;
 
 export const ForgotText = styled.Text`
