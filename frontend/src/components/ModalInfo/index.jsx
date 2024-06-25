@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import { useTheme } from 'styled-components';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-export default function ModalSelect({ showModal, setShowModal }) {
+export default function ModalInfo({ showModal, setShowModal }) {
     const theme = useTheme();
 
     return (

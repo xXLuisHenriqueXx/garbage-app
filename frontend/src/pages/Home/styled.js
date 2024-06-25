@@ -32,4 +32,18 @@ export const NormalText = styled.Text`
 export const NormalTextHighlight = styled(NormalText)`
     font-weight: bold;
     color: ${({ theme }) => theme.colors.primaryGreen};
+    padding: ${RFValue(5)}px;
+
+`;
+
+export const DropdownTypeContainer = styled.TouchableOpacity`
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: ${RFValue(15)}px;
+`;
+
+export const DropdownText = styled.Text`
+    font-size: ${RFValue(14)}px;
+    color: ${({ theme }) => theme.colors.white};
+    margin-left: ${RFValue(10)}px;
 `;

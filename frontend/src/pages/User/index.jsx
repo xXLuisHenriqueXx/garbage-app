@@ -5,7 +5,6 @@ import { FontAwesome6, Entypo } from '@expo/vector-icons';
 import { useTheme } from "styled-components";
 import { useNavigation } from "@react-navigation/native";
 import { RFValue } from "react-native-responsive-fontsize";
-import { Modal } from "react-native";
 import ModalInfo from "../../components/ModalInfo";
 
 const dataIndividual = [
@@ -77,7 +76,7 @@ export default function User() {
                             {dataIndividual.map((item) => (
                                 <ContainerSingleText>
                                     <Entypo name="check" size={RFValue(8)} color={theme.colors.primaryGreen} />
-                                    <PlanText key={item.id}>{item.text}</PlanText>
+                                    <PlanText>{item.text}</PlanText>
                                 </ContainerSingleText>
                             ))}
                         </ContainerPlanText>
@@ -88,7 +87,7 @@ export default function User() {
                             {dataProfissional.map((item) => (
                                 <ContainerSingleText>
                                 <Entypo name="check" size={RFValue(8)} color={theme.colors.primaryGreen} />
-                                <PlanText key={item.id}>{item.text}</PlanText>
+                                <PlanText>{item.text}</PlanText>
                             </ContainerSingleText>
                             ))}
                         </ContainerPlanText>

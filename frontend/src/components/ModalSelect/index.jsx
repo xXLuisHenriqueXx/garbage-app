@@ -1,12 +1,11 @@
 import { Modal } from 'react-native';
-import { ContainerButtons, ContainerView, ModalTitle } from './styled';
+import { Container, ContainerButtons, ContainerView, ModalTitle } from './styled';
 import { useTheme } from 'styled-components';
-import { LinearGradient } from 'expo-linear-gradient';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { TypeButton } from './styled';
 import { TypeButtonText } from './styled';
 
-export default function ModalSelect({ showModal, setShowModal }) {
+export default function ModalSelect({ showModal, setShowModal, setScreenType }) {
     const theme = useTheme();
     return (
         <Modal
@@ -18,40 +17,29 @@ export default function ModalSelect({ showModal, setShowModal }) {
             }}
         >
             <ContainerView>
-                <LinearGradient
-                    colors={theme.colors.bgColor}
-                    style={
-                        {
-                            width: "90%",
-                            height: RFValue(180),
-                            alignItems: "center",
-                            paddingTop: RFValue(20),
-                            borderRadius: RFValue(10),
-                            borderWidth: RFValue(1),
-                            borderColor: theme.colors.bdColor
-                        }
-                    }
-                >
+                <Container>
                     <ModalTitle>
-                        Qual tipo de nota deseja utilizar?
+                        Qual tipo de descarte deseja visualizar?
                     </ModalTitle>
                     <ContainerButtons>
                         <TypeButton
                             onPress={() => {
                                 setShowModal(!showModal);
+                                setScreenType("recente");
                             }}
                         >
-                            <TypeButtonText>Textual</TypeButtonText>
+                            <TypeButtonText>Recentes</TypeButtonText>
                         </TypeButton>
                         <TypeButton
                             onPress={() => {
                                 setShowModal(!showModal);
+                                setScreenType("disponivel");
                             }}
                         >
-                            <TypeButtonText>Tarefa</TypeButtonText>
+                            <TypeButtonText>Disponíveis</TypeButtonText>
                         </TypeButton>
                     </ContainerButtons>
-                </LinearGradient>
+                </Container>
             </ContainerView>
         </Modal >
     );
