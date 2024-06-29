@@ -3,13 +3,13 @@ const path = require('path');
 const util = require('util');
 const readFile = util.promisify(fs.readFile);
 
-async function getAddresses() {
+async function getAddresses(req, res) {
     const filePath = path.join(__dirname, '..', 'data', 'adresses.txt');
 
     // Check if file exists
     if (!fs.existsSync(filePath)) {
         console.error('File does not exist');
-        return;
+        return res.status(404).send({ error: 'File does not exist' });
     }
 
     try {
@@ -19,12 +19,13 @@ async function getAddresses() {
             return { addressString, addressLink };
         });
 
-        console.log(addresses);
+        return res.status(200).send({ addresses });
     } catch (err) {
         console.error('Error reading file:', err);
+        return res.status(500).send({ error: 'Error reading file' });
     }
 }
 
 module.exports = {
     getAddresses
-}
+};
