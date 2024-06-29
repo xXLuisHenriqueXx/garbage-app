@@ -9,7 +9,6 @@ async function login(req, res) {
     }
 
     const { email, password } = req.body;
-
     try {
         const filePath = path.join(__dirname, '..', 'data', 'users.txt');
         const data = await readFile(filePath, 'utf8');
@@ -44,8 +43,6 @@ async function login(req, res) {
         return res.status(500).send({ message: "internal server error" });
     }
 }
-
-
 
 module.exports = {
     login

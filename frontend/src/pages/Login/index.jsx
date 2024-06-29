@@ -1,23 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from 'axios';
 import { Container, MainContainer, Logo, InputContainer, Input, ButtonLoginText, ButtonLogin, ButtonRegister, ButtonTextRegister, ForgotText, InputTitle, ScrollContainer } from "./styled";
 import { useTheme } from "styled-components";
 import { Entypo, Feather } from '@expo/vector-icons';
-import LogoImg from "../../assets/Logo.png"
+import LogoImg from "../../assets/Logo.png";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Login() {
     const theme = useTheme();
     const navigation = useNavigation();
-
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    //substituir url caso vá usar uma url diferente, por ex, ipv4 da maquina q ta rodando a API
+    const url = 'http://localhost:3000/login';
     const handleNavigateToRegister = () => {
         navigation.navigate("Register");
     }
 
-    const handleLogin = () => {
-        navigation.navigate("Home");
+    const handleLogin = async () => {
+        try {
+            /* atencao: se for ios, vai dar erro pois ele n sabe o localhost, teria que substituir pela url real pra funcionar
+            no caso do teste, foi o http://<meu_ipv4>:3000/login */
+            const response = await axios.post(url, { email, password });
+            if (response.status === 200) {
+                navigation.navigate("Home");
+            } else {
+                alert("Email ou senha inválidos.");
+            }
+        } catch (error) {
+            alert("Ocorreu um erro ao tentar fazer login. Por favor, tente novamente.");
+            console.error(error);
+        }
     }
-
 
     return (
         <MainContainer
@@ -33,6 +48,8 @@ export default function Login() {
                         <Input
                             placeholder="Digite seu email..."
                             placeholderTextColor={theme.colors.whiteInactive}
+                            value={email}
+                            onChangeText={setEmail}
                         />
                     </InputContainer>
 
@@ -43,6 +60,8 @@ export default function Login() {
                             placeholder="Digite sua senha..."
                             placeholderTextColor={theme.colors.whiteInactive}
                             secureTextEntry
+                            value={password}
+                            onChangeText={setPassword}
                         />
                     </InputContainer>
 
