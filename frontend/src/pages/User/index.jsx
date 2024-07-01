@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import { ButtonHeaderContainer, Container, ContainerPlanText, ContainerSigned, ContainerSingleText, Header, HighlightInfoText, HighlightSubText, InfoPlanContainer, InfoTextUser, PlanText, PlanTitle, PlansContainer, SubTitleUser, TitleHeader, UserContainer, UserImage, UserName } from "./styled";
 import { FontAwesome6, Entypo } from '@expo/vector-icons';
 import { useTheme } from "styled-components";
-import { useNavigation } from "@react-navigation/native";
 import { RFValue } from "react-native-responsive-fontsize";
 import ModalInfo from "../../components/ModalInfo";
+import { getUser } from "../../services/storageUser";
 
 const dataIndividual = [
     {
@@ -47,9 +47,27 @@ dataProfissional = [
 
 export default function User() {
     const theme = useTheme();
-    const navigation = useNavigation();
     const [showModal, setShowModal] = useState(false);
+    const [userInfo, setUserInfo] = useState({});
 
+    const fetchUser = async () => {
+        try {
+            const userString = await getUser('user');
+            if (userString) {
+                const user = JSON.parse(userString);
+                
+                setUserInfo(user); // Atualiza o estado com o objeto do usuário
+            }
+        } catch (error) {
+            console.error("Erro ao buscar usuário:", error);
+        }      
+    }
+
+    useEffect(() => {
+        fetchUser();
+    }, []);
+
+    console.log(userInfo);
 
     return (
         <Container
@@ -63,17 +81,17 @@ export default function User() {
             <ContainerSigned>
                 <UserContainer>
                     <UserImage />
-                    <UserName>Luis Henrique</UserName>
-                    <SubTitleUser>Usuário desde: <HighlightSubText>XX/XX/XXXX</HighlightSubText></SubTitleUser>
+                    <UserName>{userInfo.user?.name}</UserName>
+                    <SubTitleUser>Usuário desde: <HighlightSubText>{userInfo.user?.registrationDate}</HighlightSubText></SubTitleUser>
                 </UserContainer>
 
-                <InfoTextUser>Saldo adquirido: <HighlightInfoText>R$ XX,XX | </HighlightInfoText>Peso descartado: <HighlightInfoText>XX,Xkg</HighlightInfoText></InfoTextUser>
+                <InfoTextUser>Saldo adquirido: <HighlightInfoText>R$ {userInfo.user?.balance} | </HighlightInfoText>Peso descartado: <HighlightInfoText>12,1kg</HighlightInfoText></InfoTextUser>
             
                 <PlansContainer>
                     <InfoPlanContainer>
                         <PlanTitle>INDIVIDUAL</PlanTitle>
                         <ContainerPlanText>
-                            {dataIndividual.map((item) => (
+                            {dataIndividual.map((item, index) => (
                                 <ContainerSingleText>
                                     <Entypo name="check" size={RFValue(8)} color={theme.colors.primaryGreen} />
                                     <PlanText>{item.text}</PlanText>
@@ -84,7 +102,7 @@ export default function User() {
                     <InfoPlanContainer>
                     <PlanTitle>PROFISSIONAL</PlanTitle>
                         <ContainerPlanText>
-                            {dataProfissional.map((item) => (
+                            {dataProfissional.map((item, index) => (
                                 <ContainerSingleText>
                                 <Entypo name="check" size={RFValue(8)} color={theme.colors.primaryGreen} />
                                 <PlanText>{item.text}</PlanText>

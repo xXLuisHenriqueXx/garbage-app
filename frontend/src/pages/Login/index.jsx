@@ -6,6 +6,7 @@ import { Entypo, Feather } from '@expo/vector-icons';
 import LogoImg from "../../assets/Logo.png";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useNavigation } from "@react-navigation/native";
+import { setUser } from "../../services/storageUser";
 
 export default function Login() {
     const theme = useTheme();
@@ -13,7 +14,7 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     //substituir url caso vá usar uma url diferente, por ex, ipv4 da maquina q ta rodando a API
-    const url = 'http://localhost:3000/login';
+    const url = 'http://192.168.3.4:3000/login';
     const handleNavigateToRegister = () => {
         navigation.navigate("Register");
     }
@@ -24,6 +25,8 @@ export default function Login() {
             no caso do teste, foi o http://<meu_ipv4>:3000/login */
             const response = await axios.post(url, { email, password });
             if (response.status === 200) {
+                // salver o user no storage
+                await setUser('user', JSON.stringify(response.data));
                 navigation.navigate("Home");
             } else {
                 alert("Email ou senha inválidos.");

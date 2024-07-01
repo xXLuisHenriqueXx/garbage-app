@@ -7,17 +7,20 @@ import GarbageItem from "../../components/GarbageItem";
 import { RFValue } from "react-native-responsive-fontsize";
 import ModalSelect from "../../components/ModalSelect";
 import axios from "axios";
+import { getUser } from "../../services/storageUser";
 
-export default function Home() {
+export default function Home({ route }) {
     const theme = useTheme();
     const [showModal, setShowModal] = useState(false);
     const [screenType, setScreenType] = useState('recente');
     const [garbageData, setGarbageData] = useState([]);
+    const [garbageUser, setGarbageUser] = useState([]);
+    const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://192.168.1.103:3000/adresses");
+                const response = await axios.get("http://192.168.3.4:3000/adresses");
                 const addresses = response.data.addresses.map((address, index) => ({
                     _id: index + 1,
                     title: address.addressString,
@@ -33,6 +36,25 @@ export default function Home() {
 
         fetchData();
     }, []);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const userString = await getUser('user');
+                if (userString) {
+                    const user = JSON.parse(userString);
+                    
+                    setUserInfo(user); // Atualiza o estado com o objeto do usuário
+                }
+            } catch (error) {
+                console.error("Erro ao buscar usuário:", error);
+            }      
+        };
+
+        fetchUser();    
+    }, []);
+
+    setGarbageUser(userInfo.user.adress)
 
     return (
         <Container source={theme.images.bgMain}>
