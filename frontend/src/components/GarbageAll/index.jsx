@@ -3,7 +3,7 @@ import { Container, IconContainer, ImagePlaceholder, NormalText, NormalTextHighl
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-const GarbageItem = ({ title }) => {
+const GarbageAll = ({ title, address }) => {
   return (
     <Container activeOpacity={0.9}>
       <PicContiner>
@@ -12,8 +12,6 @@ const GarbageItem = ({ title }) => {
       </PicContiner>
       <TextContainer>
         <Title>{title}</Title>
-        <NormalText>Horário: <NormalTextHighlight>17:45</NormalTextHighlight></NormalText>
-        <NormalText>Data: <NormalTextHighlight>02/07/2024</NormalTextHighlight></NormalText>
       </TextContainer>
       <IconContainer>
         <AntDesign name="right" size={RFValue(30)} color="white" />        
@@ -22,4 +20,4 @@ const GarbageItem = ({ title }) => {
   )
 }
 
-export default GarbageItem
+export default GarbageAll

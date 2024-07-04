@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export async function getUser(key) {
     try {
         const user = await AsyncStorage.getItem(key);
-        console.log(user);
+   
         return user;
     } catch (error) {
         console.error(error);

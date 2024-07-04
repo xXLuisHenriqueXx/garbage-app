@@ -25,7 +25,7 @@ export default function ModalSelect({ showModal, setShowModal, setScreenType }) 
                         <TypeButton
                             onPress={() => {
                                 setShowModal(!showModal);
-                                setScreenType("recente");
+                                setScreenType("Recentes");
                             }}
                         >
                             <TypeButtonText>Recentes</TypeButtonText>
@@ -33,7 +33,7 @@ export default function ModalSelect({ showModal, setShowModal, setScreenType }) 
                         <TypeButton
                             onPress={() => {
                                 setShowModal(!showModal);
-                                setScreenType("disponivel");
+                                setScreenType("Disponiveis");
                             }}
                         >
                             <TypeButtonText>Disponíveis</TypeButtonText>

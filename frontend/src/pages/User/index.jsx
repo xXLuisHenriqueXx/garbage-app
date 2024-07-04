@@ -55,19 +55,17 @@ export default function User() {
             const userString = await getUser('user');
             if (userString) {
                 const user = JSON.parse(userString);
-                
+
                 setUserInfo(user); // Atualiza o estado com o objeto do usuário
             }
         } catch (error) {
             console.error("Erro ao buscar usuário:", error);
-        }      
+        }
     }
 
     useEffect(() => {
         fetchUser();
     }, []);
-
-    console.log(userInfo);
 
     return (
         <Container
@@ -86,13 +84,13 @@ export default function User() {
                 </UserContainer>
 
                 <InfoTextUser>Saldo adquirido: <HighlightInfoText>R$ {userInfo.user?.balance} | </HighlightInfoText>Peso descartado: <HighlightInfoText>12,1kg</HighlightInfoText></InfoTextUser>
-            
+
                 <PlansContainer>
                     <InfoPlanContainer>
                         <PlanTitle>INDIVIDUAL</PlanTitle>
                         <ContainerPlanText>
                             {dataIndividual.map((item, index) => (
-                                <ContainerSingleText>
+                                <ContainerSingleText key={index}>
                                     <Entypo name="check" size={RFValue(8)} color={theme.colors.primaryGreen} />
                                     <PlanText>{item.text}</PlanText>
                                 </ContainerSingleText>
@@ -100,13 +98,13 @@ export default function User() {
                         </ContainerPlanText>
                     </InfoPlanContainer>
                     <InfoPlanContainer>
-                    <PlanTitle>PROFISSIONAL</PlanTitle>
+                        <PlanTitle>PROFISSIONAL</PlanTitle>
                         <ContainerPlanText>
                             {dataProfissional.map((item, index) => (
-                                <ContainerSingleText>
-                                <Entypo name="check" size={RFValue(8)} color={theme.colors.primaryGreen} />
-                                <PlanText>{item.text}</PlanText>
-                            </ContainerSingleText>
+                                <ContainerSingleText key={index}>
+                                    <Entypo name="check" size={RFValue(8)} color={theme.colors.primaryGreen} />
+                                    <PlanText>{item.text}</PlanText>
+                                </ContainerSingleText>
                             ))}
                         </ContainerPlanText>
                     </InfoPlanContainer>

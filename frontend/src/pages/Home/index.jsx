@@ -7,15 +7,13 @@ import GarbageItem from "../../components/GarbageItem";
 import { RFValue } from "react-native-responsive-fontsize";
 import ModalSelect from "../../components/ModalSelect";
 import axios from "axios";
-import { getUser } from "../../services/storageUser";
+import GarbageAll from "../../components/GarbageAll";
 
-export default function Home({ route }) {
+export default function Home() {
     const theme = useTheme();
     const [showModal, setShowModal] = useState(false);
-    const [screenType, setScreenType] = useState('recente');
+    const [screenType, setScreenType] = useState('Recentes');
     const [garbageData, setGarbageData] = useState([]);
-    const [garbageUser, setGarbageUser] = useState([]);
-    const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,6 +26,7 @@ export default function Home({ route }) {
                     date: "", 
                     adress: address.addressLink 
                 }));
+               
                 setGarbageData(addresses);
             } catch (error) {
                 console.error("Erro ao buscar dados:", error);
@@ -37,28 +36,9 @@ export default function Home({ route }) {
         fetchData();
     }, []);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const userString = await getUser('user');
-                if (userString) {
-                    const user = JSON.parse(userString);
-                    
-                    setUserInfo(user); // Atualiza o estado com o objeto do usuário
-                }
-            } catch (error) {
-                console.error("Erro ao buscar usuário:", error);
-            }      
-        };
-
-        fetchUser();    
-    }, []);
-
-    setGarbageUser(userInfo.user.adress)
-
     return (
         <Container source={theme.images.bgMain}>
-            {screenType === 'recente' ? (
+            {screenType === 'Recentes' ? (
                 <GarbageList
                     data={garbageData}
                     keyExtractor={item => item._id.toString()}
@@ -66,21 +46,17 @@ export default function Home({ route }) {
                         <>
                             <Title>Descartes recentes</Title>
                             <NormalText>
-                                Último descarte realizado em <NormalTextHighlight>XX/XX/XX</NormalTextHighlight>!
+                                Último descarte realizado em <NormalTextHighlight>02/07/2024</NormalTextHighlight>!
                             </NormalText>
                             <DropdownTypeContainer onPress={() => setShowModal(true)} activeOpacity={0.9}>
                                 <Entypo name="chevron-down" size={RFValue(24)} color={theme.colors.primaryGreen} />
-                                <DropdownText>Selecione o tipo</DropdownText>
+                                <DropdownText>Selecione o tipo: <NormalTextHighlight>{screenType}</NormalTextHighlight></DropdownText>
                             </DropdownTypeContainer>
                         </>
                     }
                     renderItem={({ item }) => (
                         <GarbageItem
-                            type={"recente"}
-                            adress={item.adress}
                             title={item.title}
-                            hour={item.hour}
-                            date={item.date}
                         />
                     )}
                 />
@@ -96,17 +72,14 @@ export default function Home({ route }) {
                             </NormalText>
                             <DropdownTypeContainer onPress={() => setShowModal(true)} activeOpacity={0.9}>
                                 <Entypo name="chevron-down" size={RFValue(24)} color={theme.colors.primaryGreen} />
-                                <DropdownText>Selecione o tipo</DropdownText>
+                                <DropdownText>Selecione o tipo: <NormalTextHighlight>{screenType}</NormalTextHighlight></DropdownText>
                             </DropdownTypeContainer>
                         </>
                     }
                     renderItem={({ item }) => (
-                        <GarbageItem
-                            type={"disponivel"}
+                        <GarbageAll
                             adress={item.adress}
                             title={item.title}
-                            hour={item.hour}
-                            date={item.date}
                         />
                     )}
                 />
