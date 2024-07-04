@@ -8,6 +8,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import ModalSelect from "../../components/ModalSelect";
 import axios from "axios";
 import GarbageAll from "../../components/GarbageAll";
+import { Linking } from 'react-native';
 
 export default function Home() {
     const theme = useTheme();
@@ -18,7 +19,7 @@ export default function Home() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://192.168.3.4:3000/adresses");
+                const response = await axios.get("http://192.168.100.94:3000/adresses");
                 const addresses = response.data.addresses.map((address, index) => ({
                     _id: index + 1,
                     title: address.addressString,
@@ -35,6 +36,10 @@ export default function Home() {
 
         fetchData();
     }, []);
+
+    const handleLinkPress = (url) => {
+        Linking.openURL(url).catch(err => console.error("Erro ao abrir URL:", err));
+    };
 
     return (
         <Container source={theme.images.bgMain}>
@@ -80,6 +85,7 @@ export default function Home() {
                         <GarbageAll
                             adress={item.adress}
                             title={item.title}
+                            onPress={() => handleLinkPress(item.adress)}
                         />
                     )}
                 />

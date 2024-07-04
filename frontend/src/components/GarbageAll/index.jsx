@@ -3,9 +3,9 @@ import { Container, IconContainer, ImagePlaceholder, NormalText, NormalTextHighl
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-const GarbageAll = ({ title, address }) => {
+const GarbageAll = ({ title, address, onPress}) => {
   return (
-    <Container activeOpacity={0.9}>
+    <Container activeOpacity={0.9} onPress={onPress}>
       <PicContiner>
         <ImagePlaceholder>
         </ImagePlaceholder>

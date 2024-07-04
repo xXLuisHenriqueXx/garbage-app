@@ -14,7 +14,7 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     //substituir url caso vá usar uma url diferente, por ex, ipv4 da maquina q ta rodando a API
-    const url = 'http://192.168.3.4:3000/login';
+    const url = 'http://192.168.100.94:3000/login';
     const handleNavigateToRegister = () => {
         navigation.navigate("Register");
     }

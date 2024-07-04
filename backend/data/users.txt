@@ -3,3 +3,4 @@
 3:ana.costa@example.com:senha789:Ana Costa:10/04/21:980.50:pessoal:Rua das Laranjeiras, 77|150|3|11/04/21;Avenida Paulista, 1000|220|2|12/04/21
 4:carlos.almeida@example.com:senha321:Carlos Almeida:25/05/21:150.25:empresarial:Rua do Comércio, 88|400|2|26/05/21;Rua da Liberdade, 200|100|1|27/05/21
 5:juliana.pereira@example.com:senha654:Juliana Pereira:30/06/21:2000.00:pessoal:Rua das Palmeiras, 55|800|1|01/07/21;Avenida Ipiranga, 350|500|2|02/07/21
+1:usuarioteste@email.com:123:Maria Silva:01/01/21:1200.00:pessoal:Rua das Flores, 123|250|1|01/02/21;Avenida Brasil, 456|300|2|02/02/21
